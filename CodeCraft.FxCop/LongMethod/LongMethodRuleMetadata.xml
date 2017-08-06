@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Jason's custom FxCop rules">
+  <Rule TypeName="LongMethodRule" Category="Custom" CheckId="TT1010">
+    <Name>Long Method</Name>
+    <Description>
+      Methods that do too much are more likely to break and are harder to understand
+    </Description>
+    <Url></Url>
+    <Resolution Name="Extract Method">Extract helper methods with names that describe what they do to aid readability</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>
