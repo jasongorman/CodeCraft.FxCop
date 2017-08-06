@@ -16,6 +16,7 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("IgnoresEmptyLines", 0)]
         [TestCase("MethodWithElevenLOC", 1)]
         [TestCase("MethodWithMultiLineStatement", 1)]
+        [TestCase("MethodWithCurlyBraces", 1)]
         public void MethodsWithMoreThanTenStatementsBreakRule(string methodName, int expectedProblemCount)
         {
             LongMethodRule rule = new LongMethodRule();
@@ -89,13 +90,26 @@ namespace CodeCraft.FxCop.Tests
         {
             string x = "";
             x = x + "X";
-            x = x 
+            x = 
+                x 
                 + "X";
             x = x + "X";
             x = x + "X";
             x = x + "X";
             x = x + "X";
-            x = x + "X";
+        }
+
+        void MethodWithCurlyBraces()
+        {
+            {
+                {
+                    {
+                        {
+                            string x = "";
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -17,8 +17,13 @@ namespace CodeCraft.FxCop.LongMethod
         {
             foreach (var statement in statements)
             {
-                AddLineNumber(statement.SourceContext.StartLine);
-                AddLineNumber(statement.SourceContext.EndLine);
+                int startLine = statement.SourceContext.StartLine;
+                int endLine = statement.SourceContext.EndLine;
+
+                for (int i = startLine; i <= endLine; i++)
+                {
+                    AddLineNumber(i);
+                }
             }
 
             base.VisitStatements(statements);
