@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LargeClassRuleTests.cs" />
     <Compile Include="LongMethodRuleTests.cs" />
     <Compile Include="LongParameterListRuleTests.cs" />
     <Compile Include="FeatureEnvyRuleTests.cs" />

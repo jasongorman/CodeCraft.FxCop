@@ -23,7 +23,7 @@ namespace CodeCraft.FxCop.Tests
         private Member GetMemberToCheck(string methodName)
         {
             Type type = typeof(Client);
-            AssemblyNode assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location);
+            AssemblyNode assembly = AssemblyNode.GetAssembly(this.GetType().Module.Assembly.Location);
             TypeNode typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
             Member methodToCheck = GetMethodByName(typeNode, methodName);
             return methodToCheck;
