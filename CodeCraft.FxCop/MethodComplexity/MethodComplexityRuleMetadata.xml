@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Jason's custom FxCop rules">
+  <Rule TypeName="MethodComplexityRule" Category="Custom" CheckId="TT1010">
+    <Name>Method Complexity Rule</Name>
+    <Description>
+      Methods with too many branches are more likely to break
+    </Description>
+    <Url></Url>
+    <Resolution Name="Decompose Conditional">Consider extracting branches into their own methods with lower complexity</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>

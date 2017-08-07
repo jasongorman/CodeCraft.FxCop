@@ -53,6 +53,7 @@
     <Compile Include="LargeClassRuleTests.cs" />
     <Compile Include="LongMethodRuleTests.cs" />
     <Compile Include="BooleanParameterRuleTests.cs" />
+    <Compile Include="MethodComplexityRuleTests.cs" />
     <Compile Include="LongParameterListRuleTests.cs" />
     <Compile Include="FeatureEnvyRuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
