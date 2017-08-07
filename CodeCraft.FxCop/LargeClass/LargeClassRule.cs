@@ -10,7 +10,7 @@ namespace CodeCraft.FxCop.LargeClass
         public LargeClassRule()
             : base(
                 "LargeClassRule", "CodeCraft.FxCop.LargeClass.LargeClassRuleMetadata",
-                typeof (LongMethodRule).Assembly)
+                typeof (LargeClassRule).Assembly)
         {
         }
 

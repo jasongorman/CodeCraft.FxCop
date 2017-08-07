@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Jason's custom FxCop rules">
+  <Rule TypeName="BooleanParameterRule" Category="Custom" CheckId="TT1010">
+    <Name>Boolean Parameter</Name>
+    <Description>
+      Methods with Boolean parameters tend to be doing more than one thing
+    </Description>
+    <Url></Url>
+    <Resolution Name="Extract Method">Consider extracting a dedicated method to handle the other case</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>
