@@ -1,12 +1,12 @@
 ﻿using System;
-using CodeCraft.FxCop.LongParameterList;
+using System.Collections.Generic;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
 {
     public class MethodComplexityRule : BaseIntrospectionRule
     {
-        private int _branches = 0;
+        private int _branches;
 
         public MethodComplexityRule()
             : base(
@@ -17,40 +17,26 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         public override ProblemCollection Check(Member member)
         {
-            Method method = member as Method;
+            var method = member as Method;
 
             if (method == null)
             {
                 return Problems;
             }
 
-            VisitStatements(method.Body.Statements);
-
             CheckIfComplex(method);
-            return this.Problems;
+            return Problems;
         }
 
         private void CheckIfComplex(Method method)
         {
-            string[] resolutionParams = {method.FullName};
-            Console.WriteLine("Branches in {0} = " + _branches, resolutionParams.ToString());
-            if (_branches > 2)
+            int complexity = new Metrics().CalculateComplexity(method);
+
+            if (complexity > 3)
             {
-                Problems.Add(new Problem(new Resolution("Method {0} has too many branches", resolutionParams)));
+                string[] resolutionParams = { method.FullName, complexity.ToString() };
+                Problems.Add(new Problem(new Resolution("Method {0} has {1} cyclomatic complexity. Max allowed is 3.", resolutionParams)));
             }
-        }
-
-        public override void VisitBranch(Branch branch)
-        {
-            if(branch.Condition != null && branch.SourceContext.StartLine > 0)
-                _branches++;
-            base.VisitBranch(branch);
-        }
-
-        public override void VisitSwitchInstruction(SwitchInstruction switchInstruction)
-        {
-            _branches+=switchInstruction.Targets.Count;
-            base.VisitSwitchInstruction(switchInstruction);
         }
     }
 }

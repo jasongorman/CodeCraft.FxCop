@@ -14,9 +14,9 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("EmptyMethod", 0)]
         [TestCase("MethodWithTenLOC", 0)]
         [TestCase("IgnoresEmptyLines", 0)]
+        [TestCase("MethodWithMultiLineStatement", 0)]
+        [TestCase("MethodWithCurlyBraces", 0)]
         [TestCase("MethodWithElevenLOC", 1)]
-        [TestCase("MethodWithMultiLineStatement", 1)]
-        [TestCase("MethodWithCurlyBraces", 1)]
         public void MethodsWithMoreThanTenStatementsBreakRule(string methodName, int expectedProblemCount)
         {
             LongMethodRule rule = new LongMethodRule();
@@ -71,6 +71,8 @@ namespace CodeCraft.FxCop.Tests
             x = x + "X";
             x = x + "X";
             x = x + "X";
+            x = x + "X";
+            x = x + "X";
         }
 
         void IgnoresEmptyLines()
@@ -93,6 +95,11 @@ namespace CodeCraft.FxCop.Tests
             x = 
                 x 
                 + "X";
+            x = 
+                x 
+                + "X";
+            x = x + "X";
+            x = x + "X";
             x = x + "X";
             x = x + "X";
             x = x + "X";
@@ -105,7 +112,9 @@ namespace CodeCraft.FxCop.Tests
                 {
                     {
                         {
-                            string x = "";
+                            {
+                                string x = "";
+                            }
                         }
                     }
                 }

@@ -58,6 +58,7 @@
     <Compile Include="LongMethod\StatementVisitor.cs" />
     <Compile Include="LongParameterList\LongParameterListRule.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
+    <Compile Include="MethodComplexity\Metrics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

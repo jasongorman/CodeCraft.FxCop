@@ -49,9 +49,9 @@ namespace CodeCraft.FxCop.Tests
 
             if (x > -1)
             {
-                if (x < 1)
+                if (x < 10)
                 {
-                    x++;
+                    
                 }
             }
         }
@@ -121,11 +121,11 @@ namespace CodeCraft.FxCop.Tests
             {
                 x++;
                 int y = 0;
-
                 while (y < 10)
                 {
                     y++;
                 }
+
             }
         }
 

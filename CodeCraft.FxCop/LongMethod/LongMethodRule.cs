@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CodeCraft.FxCop.MethodComplexity;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.LongMethod
 {
     public class LongMethodRule : BaseIntrospectionRule
     {
+
         public LongMethodRule()
             : base(
                 "LongMethodRule", "CodeCraft.FxCop.LongMethod.LongMethodRuleMetadata",
@@ -20,16 +23,13 @@ namespace CodeCraft.FxCop.LongMethod
             {
                 return Problems;
             }
-
-            StatementVisitor visitor = new StatementVisitor();
-            visitor.VisitStatements(method.Body.Statements);
-            CheckForLongMethod(visitor, method);
+            CheckForLongMethod(method);
             return this.Problems;
         }
 
-        private void CheckForLongMethod(StatementVisitor visitor, Method method)
+        private void CheckForLongMethod(Method method)
         {
-            if (visitor.LinesOfCode > 10)
+            if (new Metrics().CalculateLines(method) > 10)
             {
                 string[] resolutionParams = {method.FullName};
                 Problems.Add(new Problem(new Resolution("Method {0} is too long", resolutionParams)));
