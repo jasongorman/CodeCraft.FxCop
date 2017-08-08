@@ -20,12 +20,17 @@ namespace CodeCraft.FxCop.LongParameterList
                 return Problems;
             }
 
+            CheckParamsLength(method);
+            return this.Problems;
+        }
+
+        private void CheckParamsLength(Method method)
+        {
             if (method.Parameters.Count > 3)
             {
                 string[] resolutionParams = {method.FullName};
                 Problems.Add(new Problem(new Resolution("Method {0} has too many parameters", resolutionParams)));
             }
-            return this.Problems;
         }
     }
 }

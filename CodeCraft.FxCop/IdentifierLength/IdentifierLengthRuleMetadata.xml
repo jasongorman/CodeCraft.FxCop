@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="IdentifierLengthRule" Category="Custom" CheckId="TT1010">
+  <Rule TypeName="IdentifierLengthRule" Category="Custom" CheckId="TT1011">
     <Name>Identifier Length</Name>
     <Description>
       Long names are harder to read and harder to use 

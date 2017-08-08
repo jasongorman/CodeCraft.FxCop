@@ -20,13 +20,18 @@ namespace CodeCraft.FxCop.LongMethod
                 int startLine = statement.SourceContext.StartLine;
                 int endLine = statement.SourceContext.EndLine;
 
-                for (int i = startLine; i <= endLine; i++)
-                {
-                    AddLineNumber(i);
-                }
+                AddLineNumbers(startLine, endLine);
             }
 
             base.VisitStatements(statements);
+        }
+
+        private void AddLineNumbers(int startLine, int endLine)
+        {
+            for (int i = startLine; i <= endLine; i++)
+            {
+                AddLineNumber(i);
+            }
         }
 
         private void AddLineNumber(int lineNumber)

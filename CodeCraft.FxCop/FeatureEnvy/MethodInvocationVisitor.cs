@@ -25,20 +25,25 @@ namespace CodeCraft.FxCop.FeatureEnvy
             var boundMember = memberBinding.BoundMember;
             if (boundMember.NodeType == NodeType.Method)
             {
-                InspectCollaboratingType(memberBinding, boundMember);
+                InspectCollaborator(memberBinding, boundMember);
             }
         }
 
-        private void InspectCollaboratingType(MemberBinding memberBinding, Member boundMember)
+        private void InspectCollaborator(MemberBinding memberBinding, Member boundMember)
         {
             var declaringType = boundMember.DeclaringType;
             if (declaringType != _callingObjectType && _callingObjectType.DeclaringModule.Types.Contains(declaringType))
             {
-                if (_collaborators.Contains(declaringType))
-                {
-                    _enviedTypes.Add(declaringType);
-                }
+                CheckIfEnvied(declaringType);
                 _collaborators.Add(declaringType);
+            }
+        }
+
+        private void CheckIfEnvied(TypeNode declaringType)
+        {
+            if (_collaborators.Contains(declaringType))
+            {
+                _enviedTypes.Add(declaringType);
             }
         }
     }

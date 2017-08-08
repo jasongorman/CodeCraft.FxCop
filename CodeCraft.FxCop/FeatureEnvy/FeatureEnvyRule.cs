@@ -18,7 +18,7 @@ namespace CodeCraft.FxCop.FeatureEnvy
             if (member.NodeType == NodeType.Method)
             {
                 var method = member as Method;
-                CheckForFeatureEnvy(method, VisitBodyStatements(method));
+                CheckFeatureEnvy(method, VisitBodyStatements(method));
             }
             return Problems;
         }
@@ -30,7 +30,7 @@ namespace CodeCraft.FxCop.FeatureEnvy
             return visitor;
         }
 
-        private void CheckForFeatureEnvy(Method method, MethodInvocationVisitor visitor)
+        private void CheckFeatureEnvy(Method method, MethodInvocationVisitor visitor)
         {
             var enviedTypes = visitor.EnviedTypes;
             if (enviedTypes.Count > 0)

@@ -11,8 +11,13 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("MethodWithTwoBranches", 0)]
         [TestCase("MethodWithOneLoop", 0)]
         [TestCase("OnlyDefaultSwitchCaseAllowed", 0)]
+        [TestCase("MethodWithTwoWhileLoops", 0)]
+        [TestCase("SwitchStatementWithTwoCases", 0)]
+        [TestCase("SwitchStatementWithThreeCases", 1)]
+        [TestCase("MethodWithThreeWhileLoops", 1)]
         [TestCase("MethodWithThreeBranches", 1)]
-        [TestCase("MethodWithTwoLoops", 1)]
+        [TestCase("MethodWithThreeLoops", 1)]
+        [TestCase("MethodWithThreeForeachLoops", 1)]
         public void MethodsWithMoreThanThreeBranchesBreakRule(string methodName, int expectedProblemCount)
         {
             var rule = new MethodComplexityRule();
@@ -74,21 +79,103 @@ namespace CodeCraft.FxCop.Tests
             }
         }
 
-        private void MethodWithTwoLoops()
+        private void MethodWithThreeLoops()
         {
             for (var i = 0; i < 5; i++)
             {
                 for (var j = 0; j < 5; j++)
                 {
+                    for (var k = 0; k < 2; k++)
+                    {
+                        
+                    }
                 }
             }
         }
 
-        private void OnlyDefaultSwitchCaseAllowed()
+        private void MethodWithThreeForeachLoops()
+        {
+            int[] stuff = {1, 2, 3};
+
+            foreach (var i in stuff)
+            {
+                
+            }
+
+            foreach (var i in stuff)
+            {
+
+            }
+
+            foreach (var i in stuff)
+            {
+
+            }
+        }
+
+        private void MethodWithTwoWhileLoops()
+        {
+            int x = 0;
+
+            while (x < 10)
+            {
+                x++;
+                int y = 0;
+
+                while (y < 10)
+                {
+                    y++;
+                }
+            }
+        }
+
+        private void MethodWithThreeWhileLoops()
+        {
+            int x = 0;
+
+            while (x < 10)
+            {
+                x++;
+                int y = 0;
+
+                while (y < 10)
+                {
+                    y++;
+                    int z = 0;
+
+                    while (z < 10)
+                    {
+                        z++;
+                    }
+                }
+            }
+        }
+
+        private void SwitchStatementWithTwoCases()
         {
             var x = 0;
             switch (x)
             {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SwitchStatementWithThreeCases()
+        {
+            var x = 0;
+            switch (x)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
                 default:
                     break;
             }

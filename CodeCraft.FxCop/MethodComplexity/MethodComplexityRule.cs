@@ -1,4 +1,5 @@
-﻿using CodeCraft.FxCop.LongParameterList;
+﻿using System;
+using CodeCraft.FxCop.LongParameterList;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
@@ -25,23 +26,30 @@ namespace CodeCraft.FxCop.MethodComplexity
 
             VisitStatements(method.Body.Statements);
 
+            CheckIfComplex(method);
+            return this.Problems;
+        }
+
+        private void CheckIfComplex(Method method)
+        {
+            string[] resolutionParams = {method.FullName};
+            Console.WriteLine("Branches in {0} = " + _branches, resolutionParams.ToString());
             if (_branches > 2)
             {
-                string[] resolutionParams = {method.FullName};
                 Problems.Add(new Problem(new Resolution("Method {0} has too many branches", resolutionParams)));
             }
-            return this.Problems;
         }
 
         public override void VisitBranch(Branch branch)
         {
-            _branches++;
+            if(branch.Condition != null && branch.SourceContext.StartLine > 0)
+                _branches++;
             base.VisitBranch(branch);
         }
 
         public override void VisitSwitchInstruction(SwitchInstruction switchInstruction)
         {
-            _branches++;
+            _branches+=switchInstruction.Targets.Count;
             base.VisitSwitchInstruction(switchInstruction);
         }
     }

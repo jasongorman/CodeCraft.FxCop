@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="LongMethodRule" Category="Custom" CheckId="TT1010">
+  <Rule TypeName="LongMethodRule" Category="Custom" CheckId="TT1014">
     <Name>Long Method</Name>
     <Description>
       Methods that do too much are more likely to break and are harder to understand

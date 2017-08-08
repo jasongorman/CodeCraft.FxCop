@@ -5,6 +5,8 @@ namespace CodeCraft.FxCop.IdentifierLength
 {
     public class IdentifierLengthRule : BaseIntrospectionRule
     {
+        private Node _currentNode;
+
         public IdentifierLengthRule()
             : base(
                 "IdentifierLengthRule", "CodeCraft.FxCop.IdentifierLength.IdentifierLengthRuleMetadata",
@@ -20,6 +22,7 @@ namespace CodeCraft.FxCop.IdentifierLength
 
         public override void Visit(Node node)
         {
+            _currentNode = node;
             CheckMember(node);
             CheckVariable(node);
             base.Visit(node);
@@ -27,16 +30,16 @@ namespace CodeCraft.FxCop.IdentifierLength
 
         public override void VisitParameter(Parameter parameter)
         {
-            CheckIfLongIdentifier(parameter.Name);
+            CheckLongIdentifier(parameter.Name);
             base.VisitParameter(parameter);
         }
 
         private void CheckVariable(Node node)
         {
             Variable variable = node as Variable;
-            if (variable != null)
+            if (variable != null && !variable.Name.Name.Contains("<"))
             {
-                CheckIfLongIdentifier(variable.Name);
+                CheckLongIdentifier(variable.Name);
             }
         }
 
@@ -45,16 +48,16 @@ namespace CodeCraft.FxCop.IdentifierLength
             Member member = node as Member;
             if (member != null && !member.IsSpecialName)
             {
-                 CheckIfLongIdentifier(member.Name);
+                 CheckLongIdentifier(member.Name);
             }
         }
 
-        private void CheckIfLongIdentifier(Identifier identifier)
+        private void CheckLongIdentifier(Identifier identifier)
         {
-            if (identifier.Name.Length > 20)
+            if (identifier.Name.Length > 20 &! (identifier.Name.Contains("<") || (identifier.Name.Contains("$"))))
             {
                 string[] resolutionParams = {identifier.Name};
-                Problems.Add(new Problem(new Resolution("Identifier {0} has more than 20 characters", resolutionParams)));
+                Problems.Add(new Problem(new Resolution("Identifier {0} has more than 20 characters", resolutionParams), _currentNode));
             }
         }
     }
