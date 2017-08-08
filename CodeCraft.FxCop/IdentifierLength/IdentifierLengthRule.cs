@@ -1,4 +1,5 @@
-﻿using Microsoft.FxCop.Sdk;
+﻿using System;
+using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.IdentifierLength
 {
@@ -17,31 +18,11 @@ namespace CodeCraft.FxCop.IdentifierLength
            return this.Problems;
         }
 
-        public override void VisitTypeNode(TypeNode type)
+        public override void Visit(Node node)
         {
-            CheckIfLongIdentifier(type.Name);
-            base.VisitTypeNode(type);
-        }
-
-        public override void VisitMethod(Method method)
-        {
-            if (!method.IsSpecialName)
-            {
-                CheckIfLongIdentifier(method.Name);
-            }
-            base.VisitMethod(method);
-        }
-
-        public override void VisitProperty(PropertyNode property)
-        {
-            CheckIfLongIdentifier(property.Name);
-            base.VisitProperty(property);
-        }
-
-        public override void VisitField(Field field)
-        {
-            CheckIfLongIdentifier(field.Name);
-            base.VisitField(field);
+            CheckMember(node);
+            CheckVariable(node);
+            base.Visit(node);
         }
 
         public override void VisitParameter(Parameter parameter)
@@ -50,10 +31,22 @@ namespace CodeCraft.FxCop.IdentifierLength
             base.VisitParameter(parameter);
         }
 
-        public override void VisitLocal(Local local)
+        private void CheckVariable(Node node)
         {
-            CheckIfLongIdentifier(local.Name);
-            base.VisitLocal(local);
+            Variable variable = node as Variable;
+            if (variable != null)
+            {
+                CheckIfLongIdentifier(variable.Name);
+            }
+        }
+
+        private void CheckMember(Node node)
+        {
+            Member member = node as Member;
+            if (member != null && !member.IsSpecialName)
+            {
+                 CheckIfLongIdentifier(member.Name);
+            }
         }
 
         private void CheckIfLongIdentifier(Identifier identifier)
@@ -64,6 +57,5 @@ namespace CodeCraft.FxCop.IdentifierLength
                 Problems.Add(new Problem(new Resolution("Identifier {0} has more than 20 characters", resolutionParams)));
             }
         }
-
     }
 }
