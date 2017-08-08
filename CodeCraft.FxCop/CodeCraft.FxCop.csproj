@@ -49,6 +49,7 @@
     <Compile Include="BooleanParameter\BooleanParameterRule.cs" />
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
     <Compile Include="FeatureEnvy\MethodInvocationVisitor.cs" />
+    <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
     <Compile Include="LargeClass\LargeClassRule.cs" />
     <Compile Include="LongMethod\LongMethodRule.cs" />
     <Compile Include="LongMethod\StatementVisitor.cs" />
@@ -73,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MethodComplexity\MethodComplexityRuleMetadata.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IdentifierLength\IdentifierLengthRuleMetadata.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

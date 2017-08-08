@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="BooleanParameterRule" Category="Custom" CheckId="TT1010">
-    <Name>Boolean Parameter</Name>
+  <Rule TypeName="IdentifierLengthRule" Category="Custom" CheckId="TT1010">
+    <Name>Identifier Length</Name>
     <Description>
-      Methods with Boolean parameters tend to be doing more than one thing
+      Long names are harder to read and harder to use 
     </Description>
     <Url></Url>
-    <Resolution Name="Extract Method">Consider extracting a dedicated method to handle the other case</Resolution>
+    <Resolution Name="Rename">Consider renaming this type, method, variable or constant</Resolution>
     <MessageLevel Certainty="95">Warning</MessageLevel>
     <Email></Email>
     <FixCategories>Breaking</FixCategories>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Rules FriendlyName="Jason's custom FxCop rules">
+<Rules FriendlyName="Codemanship's Code Craft Rules">
   <Rule TypeName="FeatureEnvyRule" Category="Custom" CheckId="TT1010">
     <Name>Feature Envy</Name>
     <Description>

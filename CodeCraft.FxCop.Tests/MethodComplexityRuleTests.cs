@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CodeCraft.FxCop.FeatureEnvy;
-using CodeCraft.FxCop.LongParameterList;
+﻿using System.Linq;
 using CodeCraft.FxCop.MethodComplexity;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
@@ -14,12 +10,12 @@ namespace CodeCraft.FxCop.Tests
     {
         [TestCase("MethodWithTwoBranches", 0)]
         [TestCase("MethodWithOneLoop", 0)]
-        [TestCase("OnlySwitchAllowed", 0)]
+        [TestCase("OnlyDefaultSwitchCaseAllowed", 0)]
         [TestCase("MethodWithThreeBranches", 1)]
         [TestCase("MethodWithTwoLoops", 1)]
         public void MethodsWithMoreThanThreeBranchesBreakRule(string methodName, int expectedProblemCount)
         {
-            MethodComplexityRule rule = new MethodComplexityRule();
+            var rule = new MethodComplexityRule();
             var memberToCheck = GetMemberToCheck(methodName);
             rule.Check(memberToCheck);
             Assert.AreEqual(expectedProblemCount, rule.Problems.Count);
@@ -27,10 +23,10 @@ namespace CodeCraft.FxCop.Tests
 
         private Member GetMemberToCheck(string methodName)
         {
-            Type type = typeof (ClassD);
-            AssemblyNode assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location);
-            TypeNode typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            Member methodToCheck = GetMethodByName(typeNode, methodName);
+            var type = typeof (ClassD);
+            var assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location);
+            var typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
+            var methodToCheck = GetMethodByName(typeNode, methodName);
             return methodToCheck;
         }
 
@@ -42,9 +38,9 @@ namespace CodeCraft.FxCop.Tests
 
     internal class ClassD
     {
-        void MethodWithTwoBranches()
+        private void MethodWithTwoBranches()
         {
-            int x = 0;
+            var x = 0;
 
             if (x > -1)
             {
@@ -55,9 +51,9 @@ namespace CodeCraft.FxCop.Tests
             }
         }
 
-        void MethodWithThreeBranches()
+        private void MethodWithThreeBranches()
         {
-            int x = 0;
+            var x = 0;
 
             if (x > -1)
             {
@@ -71,28 +67,26 @@ namespace CodeCraft.FxCop.Tests
             }
         }
 
-        void MethodWithOneLoop()
+        private void MethodWithOneLoop()
         {
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-       
             }
         }
 
-        void MethodWithTwoLoops()
+        private void MethodWithTwoLoops()
         {
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (var j = 0; j < 5; j++)
                 {
-                    
                 }
             }
         }
 
-        void OnlySwitchAllowed()
+        private void OnlyDefaultSwitchCaseAllowed()
         {
-            int x = 0;
+            var x = 0;
             switch (x)
             {
                 default:
@@ -100,5 +94,4 @@ namespace CodeCraft.FxCop.Tests
             }
         }
     }
-
 }

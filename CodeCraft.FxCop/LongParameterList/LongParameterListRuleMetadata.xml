@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Rules FriendlyName="Jason's custom FxCop rules">
+<Rules FriendlyName="Codemanship's Code Craft Rules">
   <Rule TypeName="LongParameterListRule" Category="Custom" CheckId="TT1010">
     <Name>Long Parameter List</Name>
     <Description>
