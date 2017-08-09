@@ -51,12 +51,12 @@
   <ItemGroup>
     <Compile Include="BooleanParameter\BooleanParameterRule.cs" />
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
-    <Compile Include="FeatureEnvy\MethodInvocationVisitor.cs" />
+    <Compile Include="FeatureEnvy\MethodCallVisitor.cs" />
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
     <Compile Include="LargeClass\LargeClassRule.cs" />
     <Compile Include="LongMethod\LongMethodRule.cs" />
     <Compile Include="LongMethod\StatementVisitor.cs" />
-    <Compile Include="LongParameterList\LongParameterListRule.cs" />
+    <Compile Include="LongParamList\LongParamListRule.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
     <Compile Include="MethodComplexity\Metrics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,7 +65,7 @@
     <EmbeddedResource Include="FeatureEnvy\FeatureEnvyRuleMetadata.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="LongParameterList\LongParameterListRuleMetadata.xml" />
+    <EmbeddedResource Include="LongParamList\LongParamListRuleMetadata.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LongMethod\LongMethodRuleMetadata.xml" />

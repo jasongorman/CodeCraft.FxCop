@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CodeCraft.FxCop.FeatureEnvy;
-using CodeCraft.FxCop.LongParameterList;
+using CodeCraft.FxCop.LongParamList;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
@@ -15,7 +15,7 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("MethodWithFourParams", 1)]
         public void MethodsWithMoreThanThreeParamsBreakRule(string methodName, int expectedProblemCount)
         {
-            LongParameterListRule rule = new LongParameterListRule();
+            LongParamListRule rule = new LongParamListRule();
             var memberToCheck = GetMemberToCheck(methodName);
             rule.Check(memberToCheck);
             Assert.AreEqual(expectedProblemCount, rule.Problems.Count);

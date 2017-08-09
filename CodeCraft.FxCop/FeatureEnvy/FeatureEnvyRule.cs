@@ -23,14 +23,14 @@ namespace CodeCraft.FxCop.FeatureEnvy
             return Problems;
         }
 
-        private MethodInvocationVisitor VisitBodyStatements(Method method)
+        private MethodCallVisitor VisitBodyStatements(Method method)
         {
-            var visitor = new MethodInvocationVisitor(method.DeclaringType);
+            var visitor = new MethodCallVisitor(method.DeclaringType);
             visitor.VisitStatements(method.Body.Statements);
             return visitor;
         }
 
-        private void CheckFeatureEnvy(Method method, MethodInvocationVisitor visitor)
+        private void CheckFeatureEnvy(Method method, MethodCallVisitor visitor)
         {
             var enviedTypes = visitor.EnviedTypes;
             if (enviedTypes.Count > 0)

@@ -1,83 +1,83 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
 {
     internal class Metrics
     {
+        private readonly List<OpCode> _conditionals = new List<OpCode>
+        {
+            OpCode.Brfalse_S,
+            OpCode.Brtrue_S,
+            OpCode.Beq_S,
+            OpCode.Bge_S,
+            OpCode.Bgt_S,
+            OpCode.Ble_S,
+            OpCode.Blt_S,
+            OpCode.Bne_Un_S,
+            OpCode.Bge_Un_S,
+            OpCode.Bgt_Un_S,
+            OpCode.Ble_Un_S,
+            OpCode.Blt_Un_S,
+            OpCode.Brfalse,
+            OpCode.Brtrue,
+            OpCode.Beq,
+            OpCode.Bge,
+            OpCode.Bgt,
+            OpCode.Ble,
+            OpCode.Blt,
+            OpCode.Bne_Un,
+            OpCode.Bge_Un,
+            OpCode.Bgt_Un,
+            OpCode.Ble_Un,
+            OpCode.Blt_Un
+        };
+
         internal int CalculateComplexity(Method method)
         {
             var num = 1;
-            var enumerator = method.Instructions.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                var opCode = current.OpCode;
-                switch (opCode)
-                {
-                    case OpCode.Brfalse_S:
-                    case OpCode.Brtrue_S:
-                    case OpCode.Beq_S:
-                    case OpCode.Bge_S:
-                    case OpCode.Bgt_S:
-                    case OpCode.Ble_S:
-                    case OpCode.Blt_S:
-                    case OpCode.Bne_Un_S:
-                    case OpCode.Bge_Un_S:
-                    case OpCode.Bgt_Un_S:
-                    case OpCode.Ble_Un_S:
-                    case OpCode.Blt_Un_S:
-                    case OpCode.Brfalse:
-                    case OpCode.Brtrue:
-                    case OpCode.Beq:
-                    case OpCode.Bge:
-                    case OpCode.Bgt:
-                    case OpCode.Ble:
-                    case OpCode.Blt:
-                    case OpCode.Bne_Un:
-                    case OpCode.Bge_Un:
-                    case OpCode.Bgt_Un:
-                    case OpCode.Ble_Un:
-                    case OpCode.Blt_Un:
-                        break;
-                    case OpCode.Br:
-                        continue;
-                    case OpCode.Switch:
-                    {
-                        var enumerable = (IEnumerable<int>) current.Value;
-                        var hashSet = new HashSet<int>();
-                        foreach (var current2 in enumerable)
-                        {
-                            hashSet.Add(current2);
-                        }
-                        num += hashSet.Count;
-                        continue;
-                    }
-                    default:
-                        switch (opCode)
-                        {
-                            case OpCode._Catch:
-                            case OpCode._Fault:
-                                break;
-                            case OpCode._Finally:
-                                continue;
-                            default:
-                                continue;
-                        }
-                        break;
-                }
-                num++;
-            }
+            var instructions = method.Instructions;
+            num += instructions.Count(IsConditional);
+            num += instructions.Where(IsSwitch).Sum(i => SwitchComplexity(i));
+            num += instructions.Count(IsCatchOrFault);
+
             return num;
+        }
+
+        private bool IsCatchOrFault(Instruction instruction)
+        {
+            return instruction.OpCode == OpCode._Catch || instruction.OpCode == OpCode._Fault;
+        }
+
+        private static bool IsSwitch(Instruction i)
+        {
+            return i.OpCode == OpCode.Switch;
+        }
+
+        private int SwitchComplexity(Instruction current)
+        {
+            var enumerable = (IEnumerable<int>) current.Value;
+            var hashSet = new HashSet<int>();
+            foreach (var current2 in enumerable)
+            {
+                hashSet.Add(current2);
+            }
+            return hashSet.Count;
+        }
+
+        private bool IsConditional(Instruction instruction)
+        {
+            return _conditionals.Contains(instruction.OpCode);
         }
 
         internal int CalculateLines(Method method)
         {
-            SortedSet<int> set = new SortedSet<int>();
-            MetadataCollection<Instruction>.Enumerator enumerator = method.Instructions.GetEnumerator();
+            var set = new SortedSet<int>();
+            var enumerator = method.Instructions.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                Instruction current = enumerator.Current;
+                var current = enumerator.Current;
                 if (current.OpCode != OpCode.Nop && current.OpCode != OpCode._Try && current.OpCode != OpCode.Leave_S &&
                     current.OpCode != OpCode.Ret && current.SourceContext.FileName != null)
                 {

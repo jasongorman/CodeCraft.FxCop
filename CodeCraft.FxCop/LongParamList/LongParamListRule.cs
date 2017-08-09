@@ -1,13 +1,13 @@
 ﻿using Microsoft.FxCop.Sdk;
 
-namespace CodeCraft.FxCop.LongParameterList
+namespace CodeCraft.FxCop.LongParamList
 {
-    public class LongParameterListRule : BaseIntrospectionRule
+    public class LongParamListRule : BaseIntrospectionRule
     {
-        public LongParameterListRule()
+        public LongParamListRule()
             : base(
-                "LongParameterListRule", "CodeCraft.FxCop.LongParameterList.LongParameterListRuleMetadata",
-                typeof (LongParameterListRule).Assembly)
+                "LongParamListRule", "CodeCraft.FxCop.LongParamList.LongParamListRuleMetadata",
+                typeof (LongParamListRule).Assembly)
         {
         }
 

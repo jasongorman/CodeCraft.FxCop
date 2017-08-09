@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using CodeCraft.FxCop.LongParameterList;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.BooleanParameter

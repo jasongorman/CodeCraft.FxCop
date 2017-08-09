@@ -18,6 +18,7 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("MethodWithThreeBranches", 1)]
         [TestCase("MethodWithThreeLoops", 1)]
         [TestCase("MethodWithThreeForeachLoops", 1)]
+        [TestCase("MethodWithCatchBlock", 0)]
         public void MethodsWithMoreThanThreeBranchesBreakRule(string methodName, int expectedProblemCount)
         {
             var rule = new MethodComplexityRule();
@@ -43,6 +44,23 @@ namespace CodeCraft.FxCop.Tests
 
     internal class ClassD
     {
+        private void MethodWithCatchBlock()
+        {
+            int i = 0;
+
+            while (i < 10)
+            {
+                    try
+                    {
+                        int x = 0;
+                    }
+                    catch (InvalidMetadataException e)
+                    {
+
+                    }
+            }
+        }
+
         private void MethodWithTwoBranches()
         {
             var x = 0;

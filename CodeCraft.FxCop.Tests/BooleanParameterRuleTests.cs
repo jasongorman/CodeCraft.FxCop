@@ -2,7 +2,6 @@
 using System.Linq;
 using CodeCraft.FxCop.BooleanParameter;
 using CodeCraft.FxCop.FeatureEnvy;
-using CodeCraft.FxCop.LongParameterList;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 

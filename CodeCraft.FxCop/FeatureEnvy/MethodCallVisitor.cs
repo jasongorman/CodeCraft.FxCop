@@ -3,13 +3,13 @@ using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.FeatureEnvy
 {
-    public class MethodInvocationVisitor : BinaryReadOnlyVisitor
+    public class MethodCallVisitor : BinaryReadOnlyVisitor
     {
         private readonly List<TypeNode> _collaborators = new List<TypeNode>();
         private readonly List<TypeNode> _enviedTypes = new List<TypeNode>();
         private readonly TypeNode _callingObjectType;
 
-        public MethodInvocationVisitor(TypeNode callingObjectType)
+        public MethodCallVisitor(TypeNode callingObjectType)
         {
             _callingObjectType = callingObjectType;
         }
