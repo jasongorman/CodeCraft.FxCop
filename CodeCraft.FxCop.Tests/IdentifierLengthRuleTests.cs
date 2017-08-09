@@ -20,6 +20,7 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("InterfaceNameThatsTooLong", 1)]
         [TestCase("EnumNameThatIsTooLong", 1)]
         [TestCase("EnumValueThatIsTooLong", 1)]
+        [TestCase("StaticMethodThatHasNameLongerThanTwentyChars", 1)]
         [TestCase("ShortMethodNameXXXXX", 0)]
         public void IdentifiersLongerThanTwentyCharsBreakRule(string identifier, int expectedProblemCount)
         {
@@ -50,6 +51,11 @@ namespace CodeCraft.FxCop.Tests
 
         private void ShortMethodNameXXXXX()
         {
+        }
+
+        static void StaticMethodThatHasNameLongerThanTwentyChars()
+        {
+            
         }
     }
 

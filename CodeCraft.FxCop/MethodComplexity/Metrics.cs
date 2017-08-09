@@ -36,13 +36,20 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         internal int CalculateComplexity(Method method)
         {
-            var num = 1;
-            var instructions = method.Instructions;
-            num += instructions.Count(IsConditional);
-            num += instructions.Where(IsSwitch).Sum(i => SwitchComplexity(i));
-            num += instructions.Count(IsCatchOrFault);
+            return method.Instructions.Sum(i => Complexity(i)) + 1;
+        }
 
-            return num;
+        private int Complexity(Instruction instruction)
+        {
+            if (IsConditional(instruction) || IsCatchOrFault(instruction))
+            {
+                return 1;
+            }
+            if (IsSwitch(instruction))
+            {
+                return SwitchComplexity(instruction);
+            }
+            return 0;
         }
 
         private bool IsCatchOrFault(Instruction instruction)
@@ -57,13 +64,8 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         private int SwitchComplexity(Instruction current)
         {
-            var enumerable = (IEnumerable<int>) current.Value;
-            var hashSet = new HashSet<int>();
-            foreach (var current2 in enumerable)
-            {
-                hashSet.Add(current2);
-            }
-            return hashSet.Count;
+            var targets = (IEnumerable<int>) current.Value;
+            return new HashSet<int>(targets).Count;
         }
 
         private bool IsConditional(Instruction instruction)
