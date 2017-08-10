@@ -37,14 +37,20 @@ namespace CodeCraft.FxCop.Tests
         }
     }
 
-    internal class ClassC
+    internal interface IClassC
     {
-        void MethodWithoutBooleanParam(int a)
+        void MethodWithoutBooleanParam(int a);
+        void MethodWithBooleanParam(bool x);
+    }
+
+    internal class ClassC : IClassC
+    {
+        public void MethodWithoutBooleanParam(int a)
         {
             
         }
 
-        void MethodWithBooleanParam(bool x)
+        public void MethodWithBooleanParam(bool x)
         {
             
         }

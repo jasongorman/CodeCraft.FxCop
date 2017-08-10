@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Codemanship's Code Craft Rules">
+  <Rule TypeName="ObjectCreationRule" Category="Custom" CheckId="TT1017">
+    <Name>Object Creation Rule</Name>
+    <Description>
+      Classes that create their collaborators make extending or substituting them (e.g., for mocking) difficult
+    </Description>
+    <Url></Url>
+    <Resolution Name="Dependency Injection">Consider passing this object in through a constructor or other method</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>

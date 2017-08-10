@@ -59,6 +59,7 @@
     <Compile Include="LongMethod\LinesOfCodeMetrics.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
     <Compile Include="MethodComplexity\ComplexityMetrics.cs" />
+    <Compile Include="ObjectCreation\ObjectCreationRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentifierLength\IdentifierLengthRuleMetadata.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ObjectCreation\ObjectCreationRuleMetadata.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
