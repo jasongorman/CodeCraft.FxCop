@@ -13,12 +13,13 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("OnlyDefaultSwitchCaseAllowed", 0)]
         [TestCase("MethodWithTwoWhileLoops", 0)]
         [TestCase("SwitchStatementWithTwoCases", 0)]
+        [TestCase("MethodWithCatchBlock", 0)]
         [TestCase("SwitchStatementWithThreeCases", 1)]
         [TestCase("MethodWithThreeWhileLoops", 1)]
         [TestCase("MethodWithThreeBranches", 1)]
         [TestCase("MethodWithThreeLoops", 1)]
         [TestCase("MethodWithThreeForeachLoops", 1)]
-        [TestCase("MethodWithCatchBlock", 0)]
+        [TestCase("MethodWithComplexConditional", 1)]
         public void MethodsWithMoreThanThreeBranchesBreakRule(string methodName, int expectedProblemCount)
         {
             var rule = new MethodComplexityRule();
@@ -44,6 +45,12 @@ namespace CodeCraft.FxCop.Tests
 
     internal class ClassD
     {
+        private void MethodWithComplexConditional(int x)
+        {
+            if (x < 0 || x >= 100 || x == -10)
+                x++;
+        }
+
         private void MethodWithCatchBlock()
         {
             int i = 0;

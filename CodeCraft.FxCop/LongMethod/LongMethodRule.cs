@@ -29,7 +29,7 @@ namespace CodeCraft.FxCop.LongMethod
 
         private void CheckForLongMethod(Method method)
         {
-            if (new Metrics().CalculateLines(method) > 10)
+            if (new LinesOfCodeMetrics().CalculateLines(method) > 10)
             {
                 string[] resolutionParams = {method.FullName};
                 Problems.Add(new Problem(new Resolution("Method {0} is too long", resolutionParams)));

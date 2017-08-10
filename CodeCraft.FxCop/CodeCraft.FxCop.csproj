@@ -55,10 +55,10 @@
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
     <Compile Include="LargeClass\LargeClassRule.cs" />
     <Compile Include="LongMethod\LongMethodRule.cs" />
-    <Compile Include="LongMethod\StatementVisitor.cs" />
     <Compile Include="LongParamList\LongParamListRule.cs" />
+    <Compile Include="LongMethod\LinesOfCodeMetrics.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
-    <Compile Include="MethodComplexity\Metrics.cs" />
+    <Compile Include="MethodComplexity\ComplexityMetrics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

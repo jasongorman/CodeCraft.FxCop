@@ -30,7 +30,7 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         private void CheckIfComplex(Method method)
         {
-            int complexity = new Metrics().CalculateComplexity(method);
+            int complexity = new ComplexityMetrics().CalculateComplexity(method);
 
             if (complexity > 3)
             {

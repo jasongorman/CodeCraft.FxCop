@@ -4,7 +4,7 @@ using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
 {
-    internal class Metrics
+    internal class ComplexityMetrics
     {
         private readonly List<OpCode> _conditionals = new List<OpCode>
         {
@@ -41,7 +41,7 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         private int Complexity(Instruction instruction)
         {
-            if (IsConditional(instruction) || IsCatchOrFault(instruction))
+            if (IsSingleBranch(instruction))
             {
                 return 1;
             }
@@ -50,6 +50,11 @@ namespace CodeCraft.FxCop.MethodComplexity
                 return SwitchComplexity(instruction);
             }
             return 0;
+        }
+
+        private bool IsSingleBranch(Instruction instruction)
+        {
+            return IsConditional(instruction) || IsCatchOrFault(instruction);
         }
 
         private bool IsCatchOrFault(Instruction instruction)
@@ -71,22 +76,6 @@ namespace CodeCraft.FxCop.MethodComplexity
         private bool IsConditional(Instruction instruction)
         {
             return _conditionals.Contains(instruction.OpCode);
-        }
-
-        internal int CalculateLines(Method method)
-        {
-            var set = new SortedSet<int>();
-            var enumerator = method.Instructions.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (current.OpCode != OpCode.Nop && current.OpCode != OpCode._Try && current.OpCode != OpCode.Leave_S &&
-                    current.OpCode != OpCode.Ret && current.SourceContext.FileName != null)
-                {
-                    set.Add(current.SourceContext.StartLine);
-                }
-            }
-            return set.Count;
         }
     }
 }
