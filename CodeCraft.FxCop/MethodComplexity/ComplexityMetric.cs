@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using CodeCraft.FxCop.LongMethod;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
 {
-    internal class ComplexityMetrics
+    internal class ComplexityMetric : IMetric
     {
         private readonly List<OpCode> _conditionals = new List<OpCode>
         {
@@ -34,7 +35,7 @@ namespace CodeCraft.FxCop.MethodComplexity
             OpCode.Blt_Un
         };
 
-        internal int CalculateComplexity(Method method)
+        public int Calculate(Method method)
         {
             return method.Instructions.Sum(i => Complexity(i)) + 1;
         }

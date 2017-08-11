@@ -53,12 +53,14 @@
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
     <Compile Include="FeatureEnvy\MethodCallVisitor.cs" />
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
+    <Compile Include="IStatementVisitor.cs" />
     <Compile Include="LargeClass\LargeClassRule.cs" />
+    <Compile Include="IMetric.cs" />
     <Compile Include="LongMethod\LongMethodRule.cs" />
     <Compile Include="LongParamList\LongParamListRule.cs" />
-    <Compile Include="LongMethod\LinesOfCodeMetrics.cs" />
+    <Compile Include="LongMethod\LinesOfCodeMetric.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
-    <Compile Include="MethodComplexity\ComplexityMetrics.cs" />
+    <Compile Include="MethodComplexity\ComplexityMetric.cs" />
     <Compile Include="ObjectCreation\ObjectCreationRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

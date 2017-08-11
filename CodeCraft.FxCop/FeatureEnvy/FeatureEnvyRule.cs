@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using CodeCraft.FxCop.LongMethod;
+using CodeCraft.FxCop.MethodComplexity;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.FeatureEnvy
@@ -20,17 +22,23 @@ namespace CodeCraft.FxCop.FeatureEnvy
                 var method = member as Method;
                 CheckFeatureEnvy(method, VisitBodyStatements(method));
             }
+
             return Problems;
         }
 
-        private MethodCallVisitor VisitBodyStatements(Method method)
+        private IStatementVisitor VisitBodyStatements(Method method)
         {
-            var visitor = new MethodCallVisitor(method.DeclaringType);
+            var visitor = CreateVisitor(method);
             visitor.VisitStatements(method.Body.Statements);
             return visitor;
         }
 
-        private void CheckFeatureEnvy(Method method, MethodCallVisitor visitor)
+        private IStatementVisitor CreateVisitor(Method method)
+        {
+            return new MethodCallVisitor(method.DeclaringType);
+        }
+
+        private void CheckFeatureEnvy(Method method, IStatementVisitor visitor)
         {
             var enviedTypes = visitor.EnviedTypes;
             if (enviedTypes.Count > 0)

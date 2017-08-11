@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CodeCraft.FxCop.FeatureEnvy;
 using CodeCraft.FxCop.ObjectCreation;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace CodeCraft.FxCop.Tests
         public void MethodsCantUseNewOnProjectClasses(string methodName, int expectedProblemCount)
         {
             ObjectCreationRule rule = new ObjectCreationRule();
-            Method method = GetMethodToCheck(methodName);
+            Method method = GetMethodToCheck(methodName, typeof (ClassE), this.GetType().Assembly.Location);
             rule.Check(method);
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
         }
@@ -30,17 +31,17 @@ namespace CodeCraft.FxCop.Tests
         public void FactoryOrBuilderMethodsDontCount(string methodName, int expectedProblemCount)
         {
             ObjectCreationRule rule = new ObjectCreationRule();
-            Method method = GetMethodToCheck(methodName);
+            Method method = GetMethodToCheck(methodName, typeof (ClassE), this.GetType().Assembly.Location);
             rule.Check(method);
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
         }
 
-        private Method GetMethodToCheck(string methodName)
+        private Method GetMethodToCheck(string methodName, Type typeToTest, string assemblyPath)
         {
-            Type type = typeof (ClassE);
-            AssemblyNode assemblyNode = AssemblyNode.GetAssembly(this.GetType().Assembly.Location);
+            Type type = typeToTest;
+            AssemblyNode assemblyNode = AssemblyNode.GetAssembly(assemblyPath);
             TypeNode typeNode = assemblyNode.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            return typeNode.GetMethod(Identifier.For(methodName));
+            return (Method)typeNode.Members.FirstOrDefault(m => m.Name.Name == methodName);
         }
     }
 

@@ -23,17 +23,23 @@ namespace CodeCraft.FxCop.LongMethod
             {
                 return Problems;
             }
+
             CheckForLongMethod(method);
             return this.Problems;
         }
 
         private void CheckForLongMethod(Method method)
         {
-            if (new LinesOfCodeMetrics().CalculateLines(method) > 10)
+            if (CreateMetrics().Calculate(method) > 10)
             {
                 string[] resolutionParams = {method.FullName};
                 Problems.Add(new Problem(new Resolution("Method {0} is too long", resolutionParams)));
             }
+        }
+
+        private IMetric CreateMetrics()
+        {
+            return new LinesOfCodeMetric();
         }
     }
 }

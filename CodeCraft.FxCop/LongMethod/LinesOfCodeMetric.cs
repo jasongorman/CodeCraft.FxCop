@@ -4,7 +4,7 @@ using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.LongMethod
 {
-    internal class LinesOfCodeMetrics
+    internal class LinesOfCodeMetric : IMetric
     {
         private readonly List<OpCode> _nonSourceCodes = new List<OpCode>()
         {
@@ -14,7 +14,7 @@ namespace CodeCraft.FxCop.LongMethod
             OpCode.Ret
         };
 
-        internal int CalculateLines(Method method)
+        public int Calculate(Method method)
         {
             return method.Instructions
                 .Where(IsFromSourceCode)

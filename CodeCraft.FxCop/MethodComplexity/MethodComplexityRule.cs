@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeCraft.FxCop.LongMethod;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.MethodComplexity
@@ -30,13 +31,18 @@ namespace CodeCraft.FxCop.MethodComplexity
 
         private void CheckIfComplex(Method method)
         {
-            int complexity = new ComplexityMetrics().CalculateComplexity(method);
+            int complexity = CreateMetrics().Calculate(method);
 
             if (complexity > 3)
             {
                 string[] resolutionParams = { method.FullName, complexity.ToString() };
                 Problems.Add(new Problem(new Resolution("Method {0} has {1} cyclomatic complexity. Max allowed is 3.", resolutionParams)));
             }
+        }
+
+        private IMetric CreateMetrics()
+        {
+            return new ComplexityMetric();
         }
     }
 }
