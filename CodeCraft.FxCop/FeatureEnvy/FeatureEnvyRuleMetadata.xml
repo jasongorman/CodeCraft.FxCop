@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="FeatureEnvyRule" Category="Custom" CheckId="TT1012">
+  <Rule TypeName="FeatureEnvyRule" Category="CodeCraft.FxCop" CheckId="TT1012">
     <Name>Feature Envy</Name>
     <Description>
       Multiple calls to methods of the same class inside a method stringly suggest that all or part of the method are in the wrong place

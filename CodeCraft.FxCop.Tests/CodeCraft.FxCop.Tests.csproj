@@ -59,6 +59,7 @@
     <Compile Include="MethodComplexityRuleTests.cs" />
     <Compile Include="LongParameterListRuleTests.cs" />
     <Compile Include="FeatureEnvyRuleTests.cs" />
+    <Compile Include="MethodCallRuleTests.cs" />
     <Compile Include="ObjectCreationRuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

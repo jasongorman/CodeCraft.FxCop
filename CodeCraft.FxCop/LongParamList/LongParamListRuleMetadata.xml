@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="LongParamListRule" Category="Custom" CheckId="TT1015">
+  <Rule TypeName="LongParamListRule" Category="CodeCraft.FxCop" CheckId="TT1015">
     <Name>Long Parameter List</Name>
     <Description>
       Methods with too many parameters tend to be harder to use and also the param list tends to keep growing, breaking client code

@@ -59,6 +59,8 @@
     <Compile Include="LongMethod\LongMethodRule.cs" />
     <Compile Include="LongParamList\LongParamListRule.cs" />
     <Compile Include="LongMethod\LinesOfCodeMetric.cs" />
+    <Compile Include="MethodCall\MethodCallRule.cs" />
+    <Compile Include="MethodRuleBase.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
     <Compile Include="MethodComplexity\ComplexityMetric.cs" />
     <Compile Include="ObjectCreation\ObjectCreationRule.cs" />
@@ -89,6 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ObjectCreation\ObjectCreationRuleMetadata.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MethodCall\MethodCallRuleMetadata.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

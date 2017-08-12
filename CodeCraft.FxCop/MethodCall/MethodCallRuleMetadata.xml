@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Codemanship's Code Craft Rules">
+  <Rule TypeName="MethodCallRule" Category="CodeCraft.FxCop" CheckId="TT1018">
+    <Name>Method Call Rule</Name>
+    <Description>
+      Binding to methods that aren't abstract or virtual
+    </Description>
+    <Url></Url>
+    <Resolution Name="Dependency Inversion">Consider binding instead to an interface or base class with an abstract or virtual version of this method</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>

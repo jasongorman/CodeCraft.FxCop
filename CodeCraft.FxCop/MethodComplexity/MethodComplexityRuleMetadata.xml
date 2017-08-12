@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="MethodComplexityRule" Category="Custom" CheckId="TT1016">
+  <Rule TypeName="MethodComplexityRule" Category="CodeCraft.FxCop" CheckId="TT1016">
     <Name>Method Complexity Rule</Name>
     <Description>
       Methods with too many branches are more likely to break

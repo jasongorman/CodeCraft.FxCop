@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="LargeClassRule" Category="Custom" CheckId="TT1013">
+  <Rule TypeName="LargeClassRule" Category="CodeCraft.FxCop" CheckId="TT1013">
     <Name>Large Class</Name>
     <Description>
       Classes that do too much are harder to manage and reuse 

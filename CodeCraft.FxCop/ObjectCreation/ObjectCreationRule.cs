@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿#define CODE_ANALYSIS
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.ObjectCreation
 {
-    public class ObjectCreationRule : BaseIntrospectionRule
+    public class ObjectCreationRule : MethodRuleBase
     {
-        private Method _method;
-
+        [SuppressMessage("CodeCraft.FxCop", "TT1018:MethodCallRule")]
         public ObjectCreationRule() :
             base(
             "ObjectCreationRule", "CodeCraft.FxCop.ObjectCreation.ObjectCreationRuleMetadata.xml",
@@ -14,49 +14,17 @@ namespace CodeCraft.FxCop.ObjectCreation
         {
         }
 
-        public override ProblemCollection Check(Member member)
-        {
-            _method = member as Method;
-
-            if (_method == null)
-                return Problems;
-
-            VisitStatements(_method.Body.Statements);
-            return Problems;
-        }
-
         public override void VisitConstruct(Construct construct)
         {
             var createdType = ((MemberBinding) construct.Constructor).BoundMember.DeclaringType;
 
-            if (IsProjectType(createdType) & !IsFactory(_method))
+            if (ShouldBeChecked(createdType))
             {
-                    string[] resolutionParams = {_method.Name.Name, createdType.Name.Name};
-                    Problems.Add(
-                        new Problem(new Resolution("Method {0} instantiates project class {1}", resolutionParams), construct));
+                string[] resolutionParams = {_method.Name.Name, createdType.Name.Name};
+                Problems.Add(
+                    new Problem(new Resolution("Method {0} instantiates project class {1}", resolutionParams), construct));
             }
             base.VisitConstruct(construct);
-        }
-
-        private bool IsFactory(Method method)
-        {
-            return IsFactoryName(method.Name.Name)
-                   && ReturnsAbstractType(method);
-        }
-
-        private bool ReturnsAbstractType(Method method)
-        {
-            return (method.ReturnType != FrameworkTypes.Void && method.ReturnType.IsAbstract);
-        }
-
-        private bool IsFactoryName(string name)
-        {
-            return (name.StartsWith("Create") || name.StartsWith("Build"));
-        }
-
-        private bool IsProjectType(TypeNode type)
-        {
-            return _method.DeclaringType.DeclaringModule.Types.Contains(type);
         }
     }
 }

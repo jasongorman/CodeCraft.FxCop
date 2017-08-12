@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Rules FriendlyName="Codemanship's Code Craft Rules">
-  <Rule TypeName="BooleanParameterRule" Category="Custom" CheckId="TT1010">
+  <Rule TypeName="BooleanParameterRule" Category="CodeCraft.FxCop" CheckId="TT1010">
     <Name>Boolean Parameter</Name>
     <Description>
       Methods with Boolean parameters tend to be doing more than one thing
