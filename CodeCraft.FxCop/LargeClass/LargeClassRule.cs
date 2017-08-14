@@ -16,12 +16,6 @@ namespace CodeCraft.FxCop.LargeClass
 
         public override ProblemCollection Check(TypeNode type)
         {
-
-            if (type == null)
-            {
-                return Problems;
-            }
-
            CheckForLargeClass(type);
            return this.Problems;
         }

@@ -38,6 +38,8 @@ namespace CodeCraft.FxCop.Tests
 
     internal class Foo
     {
+        private int memberNotMethod = 0;
+
         void MethodWithThreeParams(int a, int b, int c)
         {
             

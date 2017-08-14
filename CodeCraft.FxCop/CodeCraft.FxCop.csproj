@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooleanParameter\BooleanParameterRule.cs" />
+    <Compile Include="ClientInterface\ClientInterfaceRule.cs" />
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
     <Compile Include="FeatureEnvy\MethodCallVisitor.cs" />
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
@@ -98,6 +99,9 @@
     <EmbeddedResource Include="MethodCall\MethodCallRuleMetadata.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ClientInterface\ClientInterfaceRuleMetadata.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

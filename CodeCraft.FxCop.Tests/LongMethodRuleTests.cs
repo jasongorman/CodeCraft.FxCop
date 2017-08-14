@@ -42,6 +42,8 @@ namespace CodeCraft.FxCop.Tests
 
     abstract internal class Bar
     {
+        private int z;
+
         public abstract void AbstractMethod();
 
         void EmptyMethod()

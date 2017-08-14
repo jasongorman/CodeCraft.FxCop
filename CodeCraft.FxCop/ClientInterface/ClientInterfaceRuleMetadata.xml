@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Codemanship's Code Craft Rules">
+  <Rule TypeName="ClientInterfaceRule" Category="CodeCraft.FxCop" CheckId="TT1019">
+    <Name>Client-Specific Interface</Name>
+    <Description>
+      Interfaces that expose more method than the client needs to call bind that client to too much information
+    </Description>
+    <Url></Url>
+    <Resolution Name="Extract Interface">Extract an interface that only publishes the methods the client needs</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientInterfaceRuleTests.cs" />
     <Compile Include="LargeClassRuleTests.cs" />
     <Compile Include="IdentifierLengthRuleTests.cs" />
     <Compile Include="LongMethodRuleTests.cs" />
