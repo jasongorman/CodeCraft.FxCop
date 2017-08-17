@@ -31,10 +31,20 @@ namespace CodeCraft.FxCop
             AddCollaboratorType(local.Type);
         }
 
+        public override void VisitMemberBinding(MemberBinding binding)
+        {
+            AddCollaboratorType(binding.BoundMember.DeclaringType);
+        }
+
         private void AddCollaboratorType(TypeNode type)
         {
-            if (IsProjectType(type))
+            if (ToBeIncluded(type) && IsProjectType(type))
                 _collaborators.Add(type);
+        }
+
+        private bool ToBeIncluded(TypeNode type)
+        {
+            return type != _type && !_type.IsDerivedFrom(type);
         }
 
         private bool IsProjectType(TypeNode fieldType)

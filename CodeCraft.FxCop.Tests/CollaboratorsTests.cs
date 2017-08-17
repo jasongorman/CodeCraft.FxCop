@@ -30,10 +30,32 @@ namespace CodeCraft.FxCop.Tests
         }
 
         [Test]
-        public void FindsReturnTypeOfInternalMethodCall()
+        public void FindsReturnTypeOfMethodCall()
         {
-            CheckIfCollaboratorFound("ThisClass", "ReturnType");
+            CheckIfCollaboratorFound("ThisClass", "ReturnType1");
+            CheckIfCollaboratorFound("ThisClass", "ReturnType2");
         }
+
+        [Test]
+        public void DoesntIncludeItselfAsCollaborator()
+        {
+            Collaborators collaborators = new Collaborators();
+            TypeNode type = GetTypeToCheck("ThisClass");
+            Assert.That(!collaborators.GetCollaboratorsFor(type)
+                .ToList()
+                .Exists(c => c.Name.Name == "ThisClass"));
+        }
+
+        [Test]
+        public void DoesntIncludeBaseClasses()
+        {
+            Collaborators collaborators = new Collaborators();
+            TypeNode type = GetTypeToCheck("ThisClass");
+            Assert.That(!collaborators.GetCollaboratorsFor(type)
+                .ToList()
+                .Exists(c => c.Name.Name == "BaseClass"));
+        }
+
 
         private void CheckIfCollaboratorFound(string typeName, string collaboratorTypeName)
         {
@@ -57,25 +79,42 @@ namespace CodeCraft.FxCop.Tests
         }
     }
 
-    internal class ThisClass
+    internal class ThisClass : BaseClass
     {
         private FieldType _field;
+        private ThisClass _self;
 
         internal void Foo(ParamType param)
         {
             LocalType local = new LocalType();
-            CreateReturnType().Foo();
+            CreateReturnType().Foo().Bar();
+            base.Fum();
         }
 
-        private ReturnType CreateReturnType()
+        private ReturnType1 CreateReturnType()
         {
-            return new ReturnType();
+            return new ReturnType1();
         }
     }
 
-    internal class ReturnType
+    internal class BaseClass
     {
-        public void Foo()
+        public void Fum()
+        {
+        }
+    }
+
+    internal class ReturnType1
+    {
+        public ReturnType2 Foo()
+        {
+            return new ReturnType2();
+        }
+    }
+
+    internal class ReturnType2
+    {
+        public void Bar()
         {
         }
     }
