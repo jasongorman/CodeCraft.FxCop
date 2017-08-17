@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BooleanParameter\BooleanParameterRule.cs" />
     <Compile Include="ClientInterface\ClientInterfaceRule.cs" />
+    <Compile Include="Collaborators.cs" />
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
     <Compile Include="FeatureEnvy\MethodCallVisitor.cs" />
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
