@@ -35,9 +35,9 @@ namespace CodeCraft.FxCop.MethodComplexity
             OpCode.Blt_Un
         };
 
-        public int Calculate(Method method)
+        public int Calculate(Node method)
         {
-            return method.Instructions.Sum(i => Complexity(i)) + 1;
+            return ((Method)method).Instructions.Sum(i => Complexity(i)) + 1;
         }
 
         private int Complexity(Instruction instruction)

@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="BooleanParameter\BooleanParameterRule.cs" />
     <Compile Include="ClientInterface\ClientInterfaceRule.cs" />
-    <Compile Include="Collaborators.cs" />
+    <Compile Include="MaxCollaborators\CollaboratorCount.cs" />
     <Compile Include="FeatureEnvy\FeatureEnvyRule.cs" />
     <Compile Include="FeatureEnvy\MethodCallVisitor.cs" />
     <Compile Include="IdentifierLength\IdentifierLengthRule.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="LongMethod\LongMethodRule.cs" />
     <Compile Include="LongParamList\LongParamListRule.cs" />
     <Compile Include="LongMethod\LinesOfCodeMetric.cs" />
+    <Compile Include="MaxCollaborators\MaxCollaboratorsRule.cs" />
     <Compile Include="MethodCall\MethodCallRule.cs" />
     <Compile Include="MethodRuleBase.cs" />
     <Compile Include="MethodComplexity\MethodComplexityRule.cs" />
@@ -103,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ClientInterface\ClientInterfaceRuleMetadata.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MaxCollaborators\MaxCollaboratorsRuleMetadata.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

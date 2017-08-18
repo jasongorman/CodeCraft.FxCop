@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using CodeCraft.FxCop.MaxCollaborators;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
@@ -39,9 +40,9 @@ namespace CodeCraft.FxCop.Tests
         [Test]
         public void DoesntIncludeItselfAsCollaborator()
         {
-            Collaborators collaborators = new Collaborators();
+            CollaboratorCount collaboratorCount = new CollaboratorCount();
             TypeNode type = GetTypeToCheck("ThisClass");
-            Assert.That(!collaborators.GetCollaboratorsFor(type)
+            Assert.That(!collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == "ThisClass"));
         }
@@ -49,9 +50,9 @@ namespace CodeCraft.FxCop.Tests
         [Test]
         public void DoesntIncludeBaseClasses()
         {
-            Collaborators collaborators = new Collaborators();
+            CollaboratorCount collaboratorCount = new CollaboratorCount();
             TypeNode type = GetTypeToCheck("ThisClass");
-            Assert.That(!collaborators.GetCollaboratorsFor(type)
+            Assert.That(!collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == "BaseClass"));
         }
@@ -59,9 +60,9 @@ namespace CodeCraft.FxCop.Tests
 
         private void CheckIfCollaboratorFound(string typeName, string collaboratorTypeName)
         {
-            Collaborators collaborators = new Collaborators();
+            CollaboratorCount collaboratorCount = new CollaboratorCount();
             TypeNode type = GetTypeToCheck(typeName);
-            Assert.That(collaborators.GetCollaboratorsFor(type)
+            Assert.That(collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == collaboratorTypeName));
         }

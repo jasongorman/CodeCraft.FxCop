@@ -4,6 +4,6 @@ namespace CodeCraft.FxCop
 {
     internal interface IMetric
     {
-        int Calculate(Method method);
+        int Calculate(Node node);
     }
 }

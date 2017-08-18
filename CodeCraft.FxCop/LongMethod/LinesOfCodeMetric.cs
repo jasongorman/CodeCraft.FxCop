@@ -14,9 +14,9 @@ namespace CodeCraft.FxCop.LongMethod
             OpCode.Ret
         };
 
-        public int Calculate(Method method)
+        public int Calculate(Node method)
         {
-            return method.Instructions
+            return ((Method)method).Instructions
                 .Where(IsFromSourceCode)
                 .Select(i => i.SourceContext.StartLine)
                 .Distinct()

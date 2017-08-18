@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.FxCop.Sdk;
 
-namespace CodeCraft.FxCop
+namespace CodeCraft.FxCop.MaxCollaborators
 {
-    public class Collaborators : BinaryReadOnlyVisitor
+    public class CollaboratorCount : BinaryReadOnlyVisitor, IMetric
     {
         private TypeNode _type;
         private HashSet<TypeNode> _collaborators;
@@ -38,7 +38,7 @@ namespace CodeCraft.FxCop
 
         private void AddCollaboratorType(TypeNode type)
         {
-            if (ToBeIncluded(type) && IsProjectType(type))
+            if (ToBeIncluded(type) && _type.DeclaringModule.Types.Contains(type))
                 _collaborators.Add(type);
         }
 
@@ -47,9 +47,9 @@ namespace CodeCraft.FxCop
             return type != _type && !_type.IsDerivedFrom(type);
         }
 
-        private bool IsProjectType(TypeNode fieldType)
+        public int Calculate(Node type)
         {
-            return _type.DeclaringModule.Types.Contains(fieldType);
+            return GetCollaboratorsFor((TypeNode)type).Count;
         }
     }
 }

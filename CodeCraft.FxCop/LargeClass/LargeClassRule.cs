@@ -9,7 +9,7 @@ namespace CodeCraft.FxCop.LargeClass
     {
         public LargeClassRule()
             : base(
-                "LargeClassRule", "CodeCraft.FxCop.LargeClass.LargeClassRuleMetadata",
+                "LargeClassRule", "CodeCraft.FxCop.LargeClass.LargeClassRuleMetadata.xml",
                 typeof (LargeClassRule).Assembly)
         {
         }

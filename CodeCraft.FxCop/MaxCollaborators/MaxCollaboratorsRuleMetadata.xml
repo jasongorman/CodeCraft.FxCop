@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules FriendlyName="Codemanship's Code Craft Rules">
+  <Rule TypeName="MaxCollaboratorsRule" Category="CodeCraft.FxCop" CheckId="TT1020">
+    <Name>Maximum CollaboratorCount</Name>
+    <Description>
+      Classes should have as few dependencies as possible to localise impact of changes 
+    </Description>
+    <Url></Url>
+    <Resolution Name="Various">Perhaps this class does too much, or perhaps there are message chains that could be refactored</Resolution>
+    <MessageLevel Certainty="95">Warning</MessageLevel>
+    <Email></Email>
+    <FixCategories>Breaking</FixCategories>
+    <Owner></Owner>
+  </Rule>
+</Rules>
