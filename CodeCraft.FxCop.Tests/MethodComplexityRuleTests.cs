@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CodeCraft.FxCop.MethodComplexity;
+﻿using CodeCraft.FxCop.MethodComplexity;
 using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
@@ -23,23 +22,8 @@ namespace CodeCraft.FxCop.Tests
         public void MethodsWithMoreThanThreeBranchesBreakRule(string methodName, int expectedProblemCount)
         {
             var rule = new MethodComplexityRule();
-            var memberToCheck = GetMemberToCheck(methodName);
-            rule.Check(memberToCheck);
+            rule.Check(AssemblyReader.GetMethodByName(typeof (ClassD), methodName));
             Assert.AreEqual(expectedProblemCount, rule.Problems.Count);
-        }
-
-        private Member GetMemberToCheck(string methodName)
-        {
-            var type = typeof (ClassD);
-            var assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location);
-            var typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            var methodToCheck = GetMethodByName(typeNode, methodName);
-            return methodToCheck;
-        }
-
-        private Member GetMethodByName(TypeNode typeNode, string methodName)
-        {
-            return typeNode.Members.FirstOrDefault(member => member.Name.Name == methodName);
         }
     }
 
@@ -53,18 +37,17 @@ namespace CodeCraft.FxCop.Tests
 
         private void MethodWithCatchBlock()
         {
-            int i = 0;
+            var i = 0;
 
             while (i < 10)
             {
-                    try
-                    {
-                        int x = 0;
-                    }
-                    catch (InvalidMetadataException e)
-                    {
-
-                    }
+                try
+                {
+                    var x = 0;
+                }
+                catch (InvalidMetadataException e)
+                {
+                }
             }
         }
 
@@ -76,7 +59,6 @@ namespace CodeCraft.FxCop.Tests
             {
                 if (x < 10)
                 {
-                    
                 }
             }
         }
@@ -112,7 +94,6 @@ namespace CodeCraft.FxCop.Tests
                 {
                     for (var k = 0; k < 2; k++)
                     {
-                        
                     }
                 }
             }
@@ -124,49 +105,45 @@ namespace CodeCraft.FxCop.Tests
 
             foreach (var i in stuff)
             {
-                
             }
 
             foreach (var i in stuff)
             {
-
             }
 
             foreach (var i in stuff)
             {
-
             }
         }
 
         private void MethodWithTwoWhileLoops()
         {
-            int x = 0;
+            var x = 0;
 
             while (x < 10)
             {
                 x++;
-                int y = 0;
+                var y = 0;
                 while (y < 10)
                 {
                     y++;
                 }
-
             }
         }
 
         private void MethodWithThreeWhileLoops()
         {
-            int x = 0;
+            var x = 0;
 
             while (x < 10)
             {
                 x++;
-                int y = 0;
+                var y = 0;
 
                 while (y < 10)
                 {
                     y++;
-                    int z = 0;
+                    var z = 0;
 
                     while (z < 10)
                     {

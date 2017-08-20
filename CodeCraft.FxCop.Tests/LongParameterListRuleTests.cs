@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using CodeCraft.FxCop.FeatureEnvy;
-using CodeCraft.FxCop.LongParamList;
-using Microsoft.FxCop.Sdk;
+﻿using CodeCraft.FxCop.LongParamList;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -10,29 +6,13 @@ namespace CodeCraft.FxCop.Tests
     [TestFixture]
     public class LongParameterListRuleTests
     {
-        [Test]
         [TestCase("MethodWithThreeParams", 0)]
         [TestCase("MethodWithFourParams", 1)]
         public void MethodsWithMoreThanThreeParamsBreakRule(string methodName, int expectedProblemCount)
         {
-            LongParamListRule rule = new LongParamListRule();
-            var memberToCheck = GetMemberToCheck(methodName);
-            rule.Check(memberToCheck);
+            var rule = new LongParamListRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (Foo), methodName));
             Assert.AreEqual(expectedProblemCount, rule.Problems.Count);
-        }
-
-        private Member GetMemberToCheck(string methodName)
-        {
-            Type type = typeof (Foo);
-            AssemblyNode assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location);
-            TypeNode typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            Member methodToCheck = GetMethodByName(typeNode, methodName);
-            return methodToCheck;
-        }
-
-        private Member GetMethodByName(TypeNode typeNode, string methodName)
-        {
-            return typeNode.Members.FirstOrDefault(member => member.Name.Name == methodName);
         }
     }
 
@@ -40,15 +20,12 @@ namespace CodeCraft.FxCop.Tests
     {
         private int memberNotMethod = 0;
 
-        void MethodWithThreeParams(int a, int b, int c)
+        private void MethodWithThreeParams(int a, int b, int c)
         {
-            
         }
 
-        void MethodWithFourParams(int a, int b, int c, int d)
+        private void MethodWithFourParams(int a, int b, int c, int d)
         {
-            
         }
     }
-
 }

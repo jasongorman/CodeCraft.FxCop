@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReader.cs" />
     <Compile Include="ClientInterfaceRuleTests.cs" />
     <Compile Include="CollaboratorsTests.cs" />
     <Compile Include="LargeClassRuleTests.cs" />

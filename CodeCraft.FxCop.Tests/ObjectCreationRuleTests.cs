@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using CodeCraft.FxCop.FeatureEnvy;
 using CodeCraft.FxCop.ObjectCreation;
-using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -20,9 +13,8 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("CreatesSystemType", 0)]
         public void MethodsCantUseNewOnProjectClasses(string methodName, int expectedProblemCount)
         {
-            ObjectCreationRule rule = new ObjectCreationRule();
-            Method method = GetMethodToCheck(methodName, typeof (ClassE), this.GetType().Assembly.Location);
-            rule.Check(method);
+            var rule = new ObjectCreationRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (ClassE), methodName));
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
         }
 
@@ -30,18 +22,9 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("BuildMethod", 0)]
         public void FactoryOrBuilderMethodsDontCount(string methodName, int expectedProblemCount)
         {
-            ObjectCreationRule rule = new ObjectCreationRule();
-            Method method = GetMethodToCheck(methodName, typeof (ClassE), this.GetType().Assembly.Location);
-            rule.Check(method);
+            var rule = new ObjectCreationRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (ClassE), methodName));
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
-        }
-
-        private Method GetMethodToCheck(string methodName, Type typeToTest, string assemblyPath)
-        {
-            Type type = typeToTest;
-            AssemblyNode assemblyNode = AssemblyNode.GetAssembly(assemblyPath);
-            TypeNode typeNode = assemblyNode.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            return (Method)typeNode.Members.FirstOrDefault(m => m.Name.Name == methodName);
         }
     }
 
@@ -54,12 +37,11 @@ namespace CodeCraft.FxCop.Tests
 
         private void MethodWithNoCreation()
         {
-            
         }
 
         private void CreatesSystemType()
         {
-            var foo = new System.IO.BinaryWriter(new MemoryStream(),Encoding.ASCII,false);
+            var foo = new BinaryWriter(new MemoryStream(), Encoding.ASCII, false);
         }
 
         private IClassC CreateMethod()
@@ -73,5 +55,3 @@ namespace CodeCraft.FxCop.Tests
         }
     }
 }
-
-

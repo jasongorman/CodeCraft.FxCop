@@ -1,10 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CodeCraft.FxCop.MaxCollaborators;
-using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -40,8 +35,8 @@ namespace CodeCraft.FxCop.Tests
         [Test]
         public void DoesntIncludeItselfAsCollaborator()
         {
-            CollaboratorCount collaboratorCount = new CollaboratorCount();
-            TypeNode type = GetTypeToCheck("ThisClass");
+            var collaboratorCount = new CollaboratorCount();
+            var type = AssemblyReader.GetType("ThisClass");
             Assert.That(!collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == "ThisClass"));
@@ -50,33 +45,20 @@ namespace CodeCraft.FxCop.Tests
         [Test]
         public void DoesntIncludeBaseClasses()
         {
-            CollaboratorCount collaboratorCount = new CollaboratorCount();
-            TypeNode type = GetTypeToCheck("ThisClass");
+            var collaboratorCount = new CollaboratorCount();
+            var type = AssemblyReader.GetType("ThisClass");
             Assert.That(!collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == "BaseClass"));
         }
 
-
         private void CheckIfCollaboratorFound(string typeName, string collaboratorTypeName)
         {
-            CollaboratorCount collaboratorCount = new CollaboratorCount();
-            TypeNode type = GetTypeToCheck(typeName);
+            var collaboratorCount = new CollaboratorCount();
+            var type = AssemblyReader.GetType(typeName);
             Assert.That(collaboratorCount.GetCollaboratorsFor(type)
                 .ToList()
                 .Exists(c => c.Name.Name == collaboratorTypeName));
-        }
-
-        private TypeNode GetTypeToCheck(string typeName)
-        {
-            AssemblyNode assembly = AssemblyNode.GetAssembly(this.GetType().Module.Assembly.Location, true, true, true);
-            TypeNode typeNode = GetTypeByName(assembly, typeName);
-            return typeNode;
-        }
-
-        private TypeNode GetTypeByName(AssemblyNode assembly, string typeName)
-        {
-            return assembly.Types.FirstOrDefault(t => t.Name.Name == typeName);
         }
     }
 
@@ -87,9 +69,9 @@ namespace CodeCraft.FxCop.Tests
 
         internal void Foo(ParamType param)
         {
-            LocalType local = new LocalType();
+            var local = new LocalType();
             CreateReturnType().Foo().Bar();
-            base.Fum();
+            Fum();
         }
 
         private ReturnType1 CreateReturnType()

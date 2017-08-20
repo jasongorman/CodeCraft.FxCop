@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using CodeCraft.FxCop.LongMethod;
-using Microsoft.FxCop.Sdk;
+﻿using CodeCraft.FxCop.LongMethod;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -19,55 +16,24 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("MethodWithElevenLOC", 1)]
         public void MethodsWithMoreThanTenStatementsBreakRule(string methodName, int expectedProblemCount)
         {
-            LongMethodRule rule = new LongMethodRule();
-            var memberToCheck = GetMemberToCheck(methodName);
-            rule.Check(memberToCheck);
+            var rule = new LongMethodRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (Bar), methodName));
             Assert.AreEqual(expectedProblemCount, rule.Problems.Count);
-        }
-
-        private Member GetMemberToCheck(string methodName)
-        {
-            Type type = typeof (Bar);
-            AssemblyNode assembly = AssemblyNode.GetAssembly(type.Module.Assembly.Location, true, true, true);
-            TypeNode typeNode = assembly.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            Member methodToCheck = GetMethodByName(typeNode, methodName);
-            return methodToCheck;
-        }
-
-        private Member GetMethodByName(TypeNode typeNode, string methodName)
-        {
-            return typeNode.Members.FirstOrDefault(member => member.Name.Name == methodName);
         }
     }
 
-    abstract internal class Bar
+    internal abstract class Bar
     {
         private int z;
-
         public abstract void AbstractMethod();
 
-        void EmptyMethod()
+        private void EmptyMethod()
         {
         }
 
-        void MethodWithTenLOC()
+        private void MethodWithTenLOC()
         {
-            string x = "";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
-        }
-
-        void MethodWithElevenLOC()
-        {
-            string x = "";
-            x = x + "X";
-            x = x + "X";
-            x = x + "X";
+            var x = "";
             x = x + "X";
             x = x + "X";
             x = x + "X";
@@ -77,9 +43,24 @@ namespace CodeCraft.FxCop.Tests
             x = x + "X";
         }
 
-        void IgnoresEmptyLines()
+        private void MethodWithElevenLOC()
         {
-            string x = "";
+            var x = "";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+            x = x + "X";
+        }
+
+        private void IgnoresEmptyLines()
+        {
+            var x = "";
             x = x + "X";
             x = x + "X";
 
@@ -90,15 +71,15 @@ namespace CodeCraft.FxCop.Tests
             x = x + "X";
         }
 
-        void MethodWithMultiLineStatement()
+        private void MethodWithMultiLineStatement()
         {
-            string x = "";
+            var x = "";
             x = x + "X";
-            x = 
-                x 
+            x =
+                x
                 + "X";
-            x = 
-                x 
+            x =
+                x
                 + "X";
             x = x + "X";
             x = x + "X";
@@ -108,14 +89,14 @@ namespace CodeCraft.FxCop.Tests
             x = x + "X";
         }
 
-        void MethodWithCurlyBraces()
+        private void MethodWithCurlyBraces()
         {
             {
                 {
                     {
                         {
                             {
-                                string x = "";
+                                var x = "";
                             }
                         }
                     }
@@ -123,5 +104,4 @@ namespace CodeCraft.FxCop.Tests
             }
         }
     }
-
 }

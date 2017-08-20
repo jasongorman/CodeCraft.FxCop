@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CodeCraft.FxCop.IdentifierLength;
-using CodeCraft.FxCop.LongMethod;
-using Microsoft.FxCop.Sdk;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -24,49 +21,44 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("ShortMethodNameXXXXX", 0)]
         public void IdentifiersLongerThanTwentyCharsBreakRule(string identifier, int expectedProblemCount)
         {
-            IdentifierLengthRule rule = new IdentifierLengthRule();
-            var module = GetAssembly();
+            var rule = new IdentifierLengthRule();
+            var module = AssemblyReader.GetAssembly();
             rule.Check(module);
-            Assert.That(rule.Problems.Count(p => p.Resolution.ToString().Contains(identifier)), Is.EqualTo(expectedProblemCount));
-        }
-
-        private AssemblyNode GetAssembly()
-        {
-            return AssemblyNode.GetAssembly(this.GetType().Module.Assembly.Location, true, true, true);
+            Assert.That(rule.Problems.Count(p => p.Resolution.ToString().Contains(identifier)),
+                Is.EqualTo(expectedProblemCount));
         }
     }
 
-    class ClassNameThatsTooLong
+    internal class ClassNameThatsTooLong
     {
+        private const int constantNameThatIsTooLong = 0;
         private int _fieldNameThatsTooLong;
 
-        private const int constantNameThatIsTooLong = 0;
-
-        int PropertyNameTooLongXX { get { return 0; } }
-
-        void MethodNameThatsTooLong(int parameterNameThatsTooLong)
+        private int PropertyNameTooLongXX
         {
-            int localNameThatIsTooLong = 0;
+            get { return 0; }
+        }
+
+        private void MethodNameThatsTooLong(int parameterNameThatsTooLong)
+        {
+            var localNameThatIsTooLong = 0;
         }
 
         private void ShortMethodNameXXXXX()
         {
         }
 
-        static void StaticMethodThatHasNameLongerThanTwentyChars()
+        private static void StaticMethodThatHasNameLongerThanTwentyChars()
         {
-            
         }
     }
 
-    interface InterfaceNameThatsTooLong
+    internal interface InterfaceNameThatsTooLong
     {
-        
     }
 
-    enum EnumNameThatIsTooLong
+    internal enum EnumNameThatIsTooLong
     {
         EnumValueThatIsTooLong
     }
-
 }

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using CodeCraft.FxCop.FeatureEnvy;
-using CodeCraft.FxCop.MethodCall;
-using CodeCraft.FxCop.ObjectCreation;
-using Microsoft.FxCop.Sdk;
+﻿using CodeCraft.FxCop.MethodCall;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -21,9 +11,8 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("CallsVirtualMethod", 0)]
         public void CannotInvokeConcreteMethods(string methodName, int expectedProblemCount)
         {
-            MethodCallRule rule = new MethodCallRule();
-            Method method = GetMethodToCheck(methodName, typeof (ClassF), this.GetType().Assembly.Location);
-            rule.Check(method);
+            var rule = new MethodCallRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (ClassF), methodName));
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
         }
 
@@ -31,26 +20,17 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("Build", 0)]
         public void FactoryOrBuilderMethodsDontCount(string methodName, int expectedProblemCount)
         {
-            MethodCallRule rule = new MethodCallRule();
-            Method method = GetMethodToCheck(methodName, typeof (ClassF), this.GetType().Assembly.Location);
-            rule.Check(method);
+            var rule = new MethodCallRule();
+            rule.Check(AssemblyReader.GetMethodByName(typeof (ClassF), methodName));
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
-        }
-
-        private Method GetMethodToCheck(string methodName, Type typeToTest, string assemblyPath)
-        {
-            Type type = typeToTest;
-            AssemblyNode assemblyNode = AssemblyNode.GetAssembly(assemblyPath);
-            TypeNode typeNode = assemblyNode.GetType(Identifier.For(type.Namespace), Identifier.For(type.Name));
-            return (Method)typeNode.Members.FirstOrDefault(m => m.Name.Name == methodName);
         }
     }
 
     internal class ClassF
     {
-        private ClassG _g;
+        private readonly ClassG _g;
 
-        ClassF(ClassG g)
+        private ClassF(ClassG g)
         {
             _g = g;
         }
@@ -86,12 +66,14 @@ namespace CodeCraft.FxCop.Tests
 
     internal abstract class ClassG
     {
-        internal virtual void VirtualMethod(){}
+        internal virtual void VirtualMethod()
+        {
+        }
 
         internal abstract void AbstractMethod();
 
-        internal void ConcreteMethod(){}
+        internal void ConcreteMethod()
+        {
+        }
     }
 }
-
-

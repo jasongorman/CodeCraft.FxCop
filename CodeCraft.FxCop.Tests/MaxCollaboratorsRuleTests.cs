@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeCraft.FxCop.MaxCollaborators;
-using Microsoft.FxCop.Sdk;
+﻿using CodeCraft.FxCop.MaxCollaborators;
 using NUnit.Framework;
 
 namespace CodeCraft.FxCop.Tests
@@ -16,21 +10,9 @@ namespace CodeCraft.FxCop.Tests
         [TestCase("ThreeCollabs", 0)]
         public void ClassesWithMoreThanThreeCollaboratorsBreakRule(string typeName, int expectedProblemCount)
         {
-            MaxCollaboratorsRule rule = new MaxCollaboratorsRule();
-            rule.Check(GetTypeToCheck(typeName));
+            var rule = new MaxCollaboratorsRule();
+            rule.Check(AssemblyReader.GetType(typeName));
             Assert.That(rule.Problems.Count, Is.EqualTo(expectedProblemCount));
-        }
-
-        private TypeNode GetTypeToCheck(string typeName)
-        {
-            AssemblyNode assembly = AssemblyNode.GetAssembly(this.GetType().Module.Assembly.Location, true, true, true);
-            TypeNode typeNode = GetTypeByName(assembly, typeName);
-            return typeNode;
-        }
-
-        private TypeNode GetTypeByName(AssemblyNode assembly, string typeName)
-        {
-            return assembly.Types.FirstOrDefault(t => t.Name.Name == typeName);
         }
     }
 

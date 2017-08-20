@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CodeCraft.FxCop.MethodComplexity;
-using Microsoft.FxCop.Sdk;
+﻿using Microsoft.FxCop.Sdk;
 
 namespace CodeCraft.FxCop.LongMethod
 {
     public class LongMethodRule : BaseIntrospectionRule
     {
-
         public LongMethodRule()
             : base(
                 "LongMethodRule", "CodeCraft.FxCop.LongMethod.LongMethodRuleMetadata",
@@ -17,7 +13,7 @@ namespace CodeCraft.FxCop.LongMethod
 
         public override ProblemCollection Check(Member member)
         {
-            Method method = member as Method;
+            var method = member as Method;
 
             if (method == null)
             {
@@ -25,7 +21,7 @@ namespace CodeCraft.FxCop.LongMethod
             }
 
             CheckForLongMethod(method);
-            return this.Problems;
+            return Problems;
         }
 
         private void CheckForLongMethod(Method method)
@@ -37,7 +33,7 @@ namespace CodeCraft.FxCop.LongMethod
             }
         }
 
-        private IMetric CreateMetrics()
+        protected IMetric CreateMetrics()
         {
             return new LinesOfCodeMetric();
         }
